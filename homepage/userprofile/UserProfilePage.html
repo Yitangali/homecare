@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Preconnect ke Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/47c41d52bf.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- User Profile Section -->
+      <div class="profile-container">
+        <!-- Navbar -->
+        <header>
+          <div class="logo">
+            <img src="Sapu.svg" alt="icon-description" class="icon" />
+            <strong>Home Care</strong>
+          </div>
+          <nav>
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">ART</a>
+            <a href="#" class="nav-link">House Cleaning</a>
+            <a href="#" class="nav-link">Child Care</a>
+            <a href="#" class="nav-link">Meal Prep</a>
+            <a href="#" class="nav-link">Car/Bike Wash</a>
+          </nav>
+          <div class="circle">
+            <i class="fa fa-user"></i>
+          </div>
+        </header>
+        <!-- Profile Form -->
+        <div class="profile-content">
+          <h1 class="profile-title">Profile</h1>
+          <form id="profileForm">
+            <label>USER NAME</label>
+            <input
+              type="text"
+              placeholder="Enter your username"
+              id="username"
+              required
+            />
+            <label>E-MAIL</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              id="email"
+              required
+            />
+            <label>PASSWORD</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              id="password"
+              required
+              minlength="6"
+            />
+            <label>PHONE</label>
+            <input
+              type="tel"
+              placeholder="Enter your phone number"
+              id="phone"
+              required
+            />
+            <!-- Save Button -->
+            <button class="save-btn" type="submit">SAVE</button>
+          </form>
+          <div class="profile-picture">
+            <!-- Gambar Profil Default -->
+            <img
+              id="profile-pic"
+              src="https://via.placeholder.com/150"
+              alt="Profile Picture"
+            />
+            <!-- Input File Hidden -->
+            <input
+              type="file"
+              id="upload-input"
+              accept="image/*"
+              style="display: none"
+            />
+            <!-- Tombol Kamera -->
+            <div class="camera-icon">
+              <label for="upload-input" style="cursor: pointer">
+                <i class="fa fa-camera"></i>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Ambil elemen form dan input
+      const form = document.getElementById("profileForm");
+      const emailInput = document.getElementById("email");
+      const phoneInput = document.getElementById("phone");
+
+      // Fungsi validasi email
+      function validateEmail(email) {
+        return email.includes("@");
+      }
+
+      // Fungsi validasi phone (hanya angka)
+      function validatePhone(phone) {
+        return /^\d+$/.test(phone); // Hanya angka (regex)
+      }
+
+      // Event listener untuk validasi form
+      form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Cegah submit default
+
+        const email = emailInput.value;
+        const phone = phoneInput.value;
+
+        // Validasi email
+        if (!validateEmail(email)) {
+          alert("Email harus mengandung '@'.");
+          return;
+        }
+
+        // Validasi phone
+        if (!validatePhone(phone)) {
+          alert("Phone hanya boleh berisi angka.");
+          return;
+        }
+
+        // Jika semua validasi lolos
+        alert("Form berhasil disimpan!");
+        // Redirect ke halaman homeafterlogin.html
+        window.location.href = "../homeafterlogin/homeafterlogin.html";
+      });
+
+      // Event untuk mengganti foto profil
+      const uploadInput = document.getElementById("upload-input");
+      const profilePic = document.getElementById("profile-pic");
+
+      uploadInput.addEventListener("change", function (event) {
+        const file = event.target.files[0]; // Ambil file pertama yang dipilih
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            profilePic.src = e.target.result; // Ganti gambar profil
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
+  </body>
+</html>
